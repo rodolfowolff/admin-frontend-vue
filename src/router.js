@@ -10,6 +10,11 @@ const router = createRouter({
       path: '/',
       component: Dashboard
     },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "PageNotFound",
+      component: () => import("./pages/PageNotFound.vue"),
+    },
   ]
 });
 
