@@ -12,9 +12,9 @@
       ref="sidebar"
       class="flex flex-col absolute left-0 top-0 lg:left-auto lg:top-auto lg:translate-x-0 
           transform h-[calc(100%-5rem)] no-scrollbar w-44 lg:w-16
-          lg:sidebar-expanded:!w-44 2xl:!w-44 flex-shrink-0 bg-white border-at-border border-r-2
+          lg:sidebar-expanded:!w-44 2xl:!w-20 flex-shrink-0 bg-white border-at-border border-r-2
           transition-all duration-200 ease-in-out"
-      :class="sidebarOpen ? 'translate-x-0' : '-translate-x-44'"
+      :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
     >
         <!-- Pages group -->
         <div class="flex-1">
@@ -30,7 +30,7 @@
                     <Chartbar />
                     <span 
                       class="text-sm flex font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 
-                        2xl:opacity-100 duration-100">
+                        duration-100">
                       Dashboard
                     </span>
                   </div>
@@ -45,7 +45,7 @@
                   <div class="items-center flex flex-col">
                     <Flowmagic />
                     <span class="text-sm flex font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 
-                      2xl:opacity-100 duration-100">
+                      duration-100">
                       Adicionar
                     </span>
                   </div>
