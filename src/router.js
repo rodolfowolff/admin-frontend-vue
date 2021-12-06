@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Dashboard from './pages/Dashboard.vue';
-import Users from './pages/Users.vue';
 import Cep from './pages/SearchCep.vue';
 
 export default createRouter({
@@ -9,10 +8,6 @@ export default createRouter({
     {
       path: '/',
       component: Dashboard
-    },
-    {
-      path: '/users',
-      component: Users
     },
     {
       path: '/cep',
