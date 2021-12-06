@@ -27,14 +27,14 @@ module.exports = {
         'at-error': '#D83636',
         'at-hoversecondary': '#0c2b40',
         'at-hoverheadertable': '#f2f3f5',
-
+        'at-hovertable': '#f4f5f7',
       },
       outline: {
         blue: '2px solid #757575',
       },
       fontFamily: {
-        'display': ['Poppins', 'sans-serif'],
-        'body': ['"Open Sans"', 'sans-serif'],
+        'display': ['Open Sans', 'sans-serif'],
+        'body': ['"Poppins"', 'sans-serif'],
       },
       fontSize: {
         xs: ['0.75rem', { lineHeight: '1.5' }],
@@ -53,6 +53,9 @@ module.exports = {
       },
       borderWidth: {
         3: '3px',
+      },
+      width: {
+        '7xl': '1366px',
       },
       minWidth: {
         36: '9rem',
