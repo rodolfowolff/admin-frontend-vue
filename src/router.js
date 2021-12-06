@@ -1,14 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Dashboard from './pages/Dashboard.vue';
+import Users from './pages/Users.vue';
 
-const routerHistory = createWebHistory();
-
-const router = createRouter({
-  history: routerHistory,
+export default createRouter({
+  history: createWebHistory(),
   routes: [
     {
       path: '/',
       component: Dashboard
+    },
+    {
+      path: '/users',
+      component: Users
     },
     {
       path: "/:pathMatch(.*)*",
@@ -17,5 +20,3 @@ const router = createRouter({
     },
   ]
 });
-
-export default router;
