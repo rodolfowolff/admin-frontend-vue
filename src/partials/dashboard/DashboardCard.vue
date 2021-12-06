@@ -5,27 +5,9 @@
           text-white bg-at-prymary shadow-md">
         <span>Cadastrar</span>
       </button>
-      
-      <div :id="id" class="flex justify-end min-w-0 flex-1 md:px-8 lg:px-0">
-        <div class="flex items-center pl-6 py-3 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
-          <div class="w-44">
-            <label for="search" class="sr-only">Busca</label>
-            <div class="relative">
-              <div class="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
-                <SearchIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
-              </div>
-              <input 
-                id="search" 
-                name="search" 
-                class="bg-gray-50 block w-full border border-t border-at-border rounded-md py-2 pl-10 pr-3 text-sm 
-                placeholder-at-gray33 focus:outline-none focus:text-gray-500 focus:placeholder-gray-400 
-                focus:ring-1 focus:ring-rose-500 focus:border-rose-500 sm:text-sm" 
-                placeholder="Buscar" 
-                type="search" />
-            </div>
-          </div>
-        </div>
-      </div>
+
+      <SearchTable />
+
     </header>
 
     <div class="overflow-x-auto">
@@ -60,25 +42,25 @@
 
             <tbody class="bg-white divide-y divide-gray-200">
               <tr v-for="user in users" :key="user.username" class="hover:bg-at-bgtrhover">
-                <td class="px-6 py-4 font-display whitespace-nowrap text-sm text-at-gray87">
+                <td class="px-6 py-4 font-display whitespace-nowrap text-xs text-at-gray87">
                   {{ user.cod }}
                 </td>
-                <td class="px-6 py-4 font-display whitespace-nowrap text-sm text-at-gray87">
+                <td class="px-6 py-4 font-display whitespace-nowrap text-xs text-at-gray87">
                   {{ user.username }}
                 </td>
-                <td class="px-6 py-4 font-display whitespace-nowrap text-sm text-at-gray87">
-                  {{ user.dateofbirth }}
+                <td class="px-6 py-4 font-display whitespace-nowrap text-xs text-at-gray87">
+                  {{ getAge(user.dateofbirth) }}
                 </td>
-                <td class="px-6 py-4 font-display whitespace-nowrap text-sm text-at-gray87">
+                <td class="px-6 py-4 font-display whitespace-nowrap text-xs text-at-gray87">
                   {{ user.githubusername }}
                 </td>
-                <td class="px-6 py-4 font-display whitespace-nowrap text-sm text-at-gray87">
+                <td class="px-6 py-4 font-display whitespace-nowrap text-xs text-at-gray87">
                   {{ user.address }}
                 </td>
-                <td class="px-2 py-4 font-display whitespace-nowrap text-right text-sm">
+                <td class="px-2 py-4">
                   <Eye />
                 </td>
-                <td class="px-3 py-4 font-display whitespace-nowrap text-right text-sm">
+                <td class="px-3 py-4">
                   <Trash />
                 </td>
               </tr>
@@ -93,6 +75,8 @@
 
 <script>
 import api from "../../api";
+import getAge from "../../utils/getAge";
+import SearchTable from "../../components/SearchTable.vue";
 import { SearchIcon } from '@heroicons/vue/solid'
 import Trash from '../../components/icons/Trash.vue'
 import Eye from '../../components/icons/Eye.vue'
@@ -100,6 +84,7 @@ import Eye from '../../components/icons/Eye.vue'
 export default {
   name: 'Dashboard',
     components: {
+    SearchTable,
     SearchIcon,
     Trash,
     Eye
@@ -124,5 +109,10 @@ export default {
          });
      },
    },
+   setup () {
+    return {
+      getAge,
+    }
   }
+}
 </script>
