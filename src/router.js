@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Dashboard from './pages/Dashboard.vue';
 import Users from './pages/Users.vue';
+import Cep from './pages/SearchCep.vue';
 
 export default createRouter({
   history: createWebHistory(),
@@ -12,6 +13,10 @@ export default createRouter({
     {
       path: '/users',
       component: Users
+    },
+    {
+      path: '/cep',
+      component: Cep
     },
     {
       path: "/:pathMatch(.*)*",
