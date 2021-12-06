@@ -2,7 +2,7 @@
   <div :id="id" class="flex justify-end min-w-0 flex-1 md:px-8 lg:px-0">
     <div class="flex items-center px-6 py-4 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
       <div class="w-60">
-        <label for="search" class="sr-only">Buscar</label>
+        <label for="search" class="sr-only">Busca</label>
         <div class="relative">
           <div class="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
             <SearchIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
