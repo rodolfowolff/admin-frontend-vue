@@ -2,7 +2,7 @@
  <Popover as="template" v-slot="{ open }">
       <header :class="[open ? 'fixed inset-0 overflow-y-auto' 
         : '', 'bg-at-secondary shadow-sm lg:static lg:overflow-y-visible']">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-4">
           <div class="relative flex justify-between lg:gap-8">
             <div class="flex md:absolute md:left-0 md:inset-y-0 lg:static xl:col-span-2">
               <div class="flex-shrink-0 flex items-center">
