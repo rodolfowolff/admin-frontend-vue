@@ -9,7 +9,6 @@
     <!-- Sidebar -->
     <div
       id="sidebar"
-      ref="sidebar"
       class="flex flex-col absolute left-0 top-0 lg:left-auto lg:top-auto lg:translate-x-0 
           transform h-[calc(100%-5rem)] no-scrollbar w-44 lg:w-16
           lg:sidebar-expanded:!w-44 2xl:!w-20 flex-shrink-0 bg-white border-at-border border-r-2
@@ -60,8 +59,8 @@
 </template>
 
 <script>
-import { ref, onMounted, onUnmounted, watch } from 'vue'
-import { useRouter } from 'vue-router'
+// import { ref, onMounted, onUnmounted, watch } from 'vue'
+// import { useRouter } from 'vue-router'
 import Chartbar from '../components/icons/Chartbar.vue'
 import Flowmagic from '../components/icons/Flowmagic.vue'
 
