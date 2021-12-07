@@ -18,6 +18,7 @@ module.exports = {
         red: colors.rose,
         'at-prymary': '#E2B874',
         'at-secondary': '#123952',
+        'at-fontsecondary': '#152E3E',
         'at-bgtrhover': '#F9FAFB',
         'at-bgbutton': '#EDEEEF',
         'at-border': '#DFE3E6',
