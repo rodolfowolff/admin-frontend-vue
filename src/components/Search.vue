@@ -1,5 +1,5 @@
 <template>
-  <div :id="id" class="flex justify-end min-w-0 flex-1 md:px-8 lg:px-0">
+  <div :id="id" class="hidden lg:flex justify-end min-w-0 flex-1 md:px-8 lg:px-0">
     <div class="flex items-center px-6 py-4 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
       <div class="w-60">
         <label for="search" class="sr-only">Busca</label>
@@ -28,21 +28,15 @@ import { SearchIcon } from '@heroicons/vue/solid'
 export default {
   name: 'Search',
   props: ['id', 'searchId'],
-  emits: ['open-modal', 'close-modal'],
   components: {
     SearchIcon
   },
-  setup(props, { emit }) {
-    const modalContent = ref(null)
-    const searchInput = ref(null)
-
-    watch(() => props.modalOpen, (open) => {
-      open && nextTick(() => searchInput.value.focus())
-    })    
-    return {
-      modalContent,
-      searchInput,
-    }
-  }
+  // setup(props, { emit }) {
+  //   const searchInput = ref(null)
+ 
+  //   return {
+  //     searchInput,
+  //   }
+  // }
 }
 </script>

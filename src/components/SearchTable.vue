@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { ref, nextTick, watch } from 'vue'
+// import { ref } from 'vue'
 import { SearchIcon } from '@heroicons/vue/solid'
 
 export default {
@@ -31,15 +31,12 @@ export default {
   components: {
     SearchIcon
   },
-  setup(props, { emit }) {
-    const searchInput = ref(null)
-
-    watch(() => props.modalOpen, (open) => {
-      open && nextTick(() => searchInput.value.focus())
-    })    
-    return {
-      searchInput,
-    }
-  }
+  // setup(props, { emit }) {
+  //   const searchInput = ref(null)
+ 
+  //   return {
+  //     searchInput,
+  //   }
+  // }
 }
 </script>
