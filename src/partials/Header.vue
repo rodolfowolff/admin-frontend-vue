@@ -2,16 +2,17 @@
  <Popover as="template" v-slot="{ open }">
       <header :class="[open ? 'fixed inset-0 overflow-y-auto' 
         : '', 'bg-at-secondary shadow-sm lg:static lg:overflow-y-visible']">
-        <div class="max-w-7xl mx-auto px-4">
-          <div class="relative flex justify-between lg:gap-8">
-            <div class="flex md:absolute md:left-0 md:inset-y-0 lg:static xl:col-span-2">
+        <div class="max-w-7xl px-4 mx-auto h-20">
+          <div class="relative flex justify-between lg:gap-8 h-full">
+            <div class="flex xl:col-span-2">
               <div class="flex-shrink-0 flex items-center">
                 <!-- Menu -->
                 <button 
                   @click.prevent="sidebarExpanded = !sidebarExpanded"
                   type="button" 
                   class="mr-5 flex-shrink-0 bg-opacity-80 bg-gray-600 rounded-full p-2 text-white hover:text-at-prymary 
-                    focus:outline-none focus:ring-2 focus:bg-at-prymary opacity-0 pointer-events-none lg:opacity-100 lg:pointer-events-auto">
+                      focus:outline-none focus:ring-2 focus:bg-at-prymary opacity-0 pointer-events-none 
+                      lg:opacity-100 lg:pointer-events-auto">
                   <span class="sr-only">Menu</span>
                   <MenuIconRoit />
                 </button>
@@ -27,8 +28,8 @@
             <div class="flex items-center md:absolute md:right-0 md:inset-y-0 lg:hidden">
             <!-- Icon x (close) -->
               <PopoverButton 
-                class="-mx-2 rounded-md p-2 inline-flex items-center justify-center text-gray-100 hover:bg-gray-200 
-              hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-rose-500">
+                class="-mx-2 mt-2 rounded-md p-2 inline-flex items-center justify-center text-gray-100 hover:bg-gray-200 
+              hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500">
                 <span class="sr-only">Abrir menu</span>
                  <MenuIconRoit v-if="!open" class="block h-5 w-5" aria-hidden="true"/>
                 <XIcon v-else class="block h-6 w-6" aria-hidden="true" />
@@ -40,7 +41,7 @@
               <a 
                 href="#" 
                 class="ml-5 flex-shrink-0 bg-white rounded-full p-1 text-gray-100 hover:text-gray-300 
-                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500">
+                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                 <span class="sr-only">Idioma</span>
                 <TranslateIcon class="h-6 w-6" aria-hidden="true" />
               </a>
@@ -49,9 +50,9 @@
               <Menu as="div" class="flex-shrink-0 relative ml-5">
                 <div>
                   <MenuButton class="bg-white rounded-full flex focus:outline-none focus:ring-2 
-                    focus:ring-offset-2 focus:ring-rose-500">
+                    focus:ring-offset-2 focus:ring-gray-100">
                     <span class="sr-only">Menu usuário</span>
-                    <img class="h-8 w-8 rounded-full" :src="user.imageUrl" alt="" />
+                    <img class="h-8 w-8 rounded-full object-contain" :src="user.imageUrl" alt="user" />
                   </MenuButton>
                 </div>
                 <transition 
@@ -61,15 +62,37 @@
                   leave-active-class="transition ease-in duration-75" 
                   leave-from-class="transform opacity-100 scale-100" 
                   leave-to-class="transform opacity-0 scale-95">
-                  <MenuItems class="origin-top-right absolute z-10 right-0 mt-2 w-48 rounded-md shadow-lg 
-                    bg-white ring-1 ring-black ring-opacity-5 py-1 focus:outline-none">
-                    <MenuItem v-for="item in userNavigation" :key="item.name" v-slot="{ active }">
-                      <a 
-                        :href="item.href" 
-                        :class="[active ? 'bg-gray-100' : '', 'block py-2 px-4 text-sm text-gray-800']">
-                        {{ item.name }}
+                  <MenuItems class="flex flex-col text-center origin-top-right absolute z-10 right-0 w-72 h-80 
+                          rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 focus:outline-none
+                          mt-2">
+                    <!-- User -->
+                    <div class="max-w-3xl mx-auto px-4 flex flex-col items-center mt-7 sm:px-6">
+                      <div class="flex-shrink-0 border-8 border-at-border rounded-full p-px">
+                        <img class="h-16 w-16 rounded-full object-contain" :src="user.imageUrl" alt="user" />
+                      </div>
+                      <div class="mt-3">
+                        <div class="text-base font-medium text-at-fontsecondary">
+                          {{ user.name }}
+                        </div>
+                        <div class="text-base font-medium text-at-gray33">
+                          ROIT
+                        </div>
+                        <div class="font-display text-sm font-light text-at-gray33">
+                          {{ user.email }}
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Menu --> 
+                    <div class="mt-6">
+                      <a href="#" class="w-4/5 block border-2 rounded-lg border-at-border mx-auto px-4 
+                        py-1 text-sm font-medium text-at-fontsecondary hover:bg-at-bgtrhover">
+                       Gerenciar Perfil
                       </a>
-                    </MenuItem>
+                      <a href="#" class="mt-4 w-1/2 block border-2 rounded-lg border-at-border mx-auto 
+                        px-4 py-1 text-sm font-medium text-at-prymary hover:bg-at-bgtrhover">
+                      Sair
+                      </a>
+                    </div>
                   </MenuItems>
                 </transition>
               </Menu>
@@ -96,29 +119,33 @@
           <!-- User menu -->
             <div class="max-w-3xl mx-auto px-4 flex items-center sm:px-6">
               <div class="flex-shrink-0">
-                <img class="h-10 w-10 rounded-full" :src="user.imageUrl" alt="user" />
+                <img class="h-14 w-14 rounded-full object-fill" :src="user.imageUrl" alt="user" />
               </div>
               <div class="ml-3">
                 <div class="text-base font-medium text-gray-100">{{ user.name }}</div>
                 <div class="text-sm font-medium text-gray-100">{{ user.email }}</div>
               </div>
+            </div>
+            <div class="mt-3 max-w-3xl mx-auto px-2 space-y-1 sm:px-4">
               <!-- Language -->
               <button 
                 type="button" 
-                class="ml-auto flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 
-                  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500">
+                class="flex ml-auto flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 
+                  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                 <span class="sr-only">Idioma</span>
                 <TranslateIcon class="h-6 w-6" aria-hidden="true" />
               </button>
-            </div>
-            <div class="mt-3 max-w-3xl mx-auto px-2 space-y-1 sm:px-4">
               <a 
-                v-for="item in userNavigation" 
-                :key="item.name" 
-                :href="item.href" 
-                class="block rounded-md py-2 px-3 text-base font-medium text-gray-400 hover:bg-gray-50 
-                hover:text-gray-900">
-                {{ item.name }}
+                href="#" 
+                class="block rounded-md py-2 px-3 text-base font-medium text-gray-400 hover:text-gray-900 
+                  hover:bg-at-bgtrhover">
+                Gerenciar Perfil
+              </a>
+              <a 
+                href="#" 
+                class="block rounded-md border-2 border-at-secondary border-rounded py-2 px-3 text-base 
+                  font-medium text-at-prymary hover:bg-at-bgtrhover">
+               Sair
               </a>
             </div>
           </div>
@@ -127,15 +154,9 @@
             <a 
               href="#" 
               class="w-full flex items-center justify-center px-4 py-2 border border-transparent text-base 
-              font-semibold rounded-md shadow-sm text-white bg-at-prymary hover:bg-rose-700">
+              font-semibold rounded-md shadow-sm text-white bg-at-prymary hover:bg-gray-600">
               Cadastrar
             </a>
-
-            <div class="mt-6 flex justify-center">
-              <a href="#" class="text-base font-medium text-at-prymary hover:underline">
-                Rodolfo Wolff
-              </a>
-            </div>
           </div>
         </PopoverPanel>
       </header>
@@ -145,7 +166,7 @@
 <script>
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import { Menu, MenuButton, MenuItem, MenuItems, Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
+import { Menu, MenuButton, MenuItems, Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
 import MenuIconRoit from '../components/icons/Menu.vue'
 import Search from '../components/Search.vue'
 import { TranslateIcon, FireIcon, HomeIcon, TrendingUpIcon, UserGroupIcon, XIcon, MenuIcon } from '@heroicons/vue/outline'
@@ -154,18 +175,11 @@ const user = {
   name: 'Rodolfo Wolff',
   email: 'rodolfoluizwolff@gmail.com',
   imageUrl:
-    'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    'https://www.kindpng.com/picc/m/451-4517876_default-profile-hd-png-download.png',
 }
 const navigation = [
-  { name: 'Home', href: '#', icon: HomeIcon, current: false },
-  { name: 'Popular', href: '#', icon: FireIcon, current: false },
-  { name: 'Communities', href: '#', icon: UserGroupIcon, current: false },
-  { name: 'Trending', href: '#', icon: TrendingUpIcon, current: false },
-]
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
+  { name: 'Dashboar', href: '#', icon: HomeIcon, current: false },
+  { name: 'Adicionar', href: '#', icon: FireIcon, current: false },
 ]
 
 export default {
@@ -175,7 +189,6 @@ export default {
     MenuIconRoit,
     Menu,
     MenuButton,
-    MenuItem,
     MenuItems,
     Popover,
     PopoverButton,
@@ -232,8 +245,7 @@ export default {
       sidebarExpanded,
       currentRoute,
       user,
-      navigation,
-      userNavigation
+      navigation
     }
   }
 }
