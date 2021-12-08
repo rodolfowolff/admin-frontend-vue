@@ -34,16 +34,15 @@
           <div class="flex items-center justify-end p-6 border-t border-solid border-gray-200 rounded-b w-11/12 mx-auto">
             <button class="text-at-error bg-transparent border border-solid border-at-error hover:bg-at-error 
               hover:text-white active:bg-red-600 font-semibold text-sm w-28 h-10 rounded outline-none 
-                focus:outline-none mr-1 ease-linear transition-all duration-150" 
+                focus:outline-none mr-1 ease-linear transition-all duration-150 shadow-md" 
             type="button" 
             v-on:click="toggleModal()">
               Cancelar
             </button>
             <button class="text-white bg-at-error border border-solid border-white hover:bg-red-600
-               font-semibold text-sm w-20 h-10 rounded outline-none 
-                focus:outline-none ml-1" 
+               font-semibold text-sm w-20 h-10 rounded outline-none focus:outline-none ml-1 shadow-md" 
               type="button" 
-              v-on:click="toggleModal()">
+              @click="fetchDelete()">
               Excluir
             </button>
           </div>
@@ -52,25 +51,30 @@
     </div>
     <div v-if="showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
   </div>
+
 </template>
 
 <script>
-import Trash from './icons/Trash.vue'
+import Trash from './icons/Trash.vue';
 
 export default {
-  name: "Modal",
+  name: "ModalDelete",
     components: {
-    Trash
+    Trash,
   },
   data() {
     return {
-      showModal: false
+      showModal: false,
     }
   },
   methods: {
-    toggleModal: function(){
+    toggleModal() {
       this.showModal = !this.showModal;
-    }
+    },
+    fetchDelete() {
+      this.$emit('fetchDelete');
+    },
   }
 }
+
 </script>
