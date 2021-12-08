@@ -1,7 +1,35 @@
-# Vue 3 + Vite
+<p align="center">
+  <img alt="home page" src=".github/dashboard.gif" width="100%">
+</p>
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Description
 
-## Recommended IDE Setup
+Dashboard ADMIN Vue 3 + Vite and Tailwind css.
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+## Installation
+
+```bash
+$ yarn
+```
+
+## Running the app
+
+```bash
+# development
+$ yarn dev
+```
+
+## Features and Observations
+
+- [ ] - Create User
+- [x] - Read User
+- [ ] - Update User
+- [x] - Delete User
+
+# Next steps
+- Unitary tests
+- Zip (viacep)
+- User (github)
+- Authentication system (JWT)
+- Change language (i18n)
+- mobile (the search needs to be fixed)
