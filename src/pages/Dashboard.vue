@@ -4,13 +4,13 @@
     <!-- Content area -->
     <div class="flex-col flex-1 overflow-y-auto overflow-x-hidden">
       <!-- Site header -->
-      <Header :sidebarOpen="sidebarOpen" @toggle-sidebar="sidebarOpen = !sidebarOpen" />
+      <Header :open="sidebarOpen" @toggle-sidebar="toggleSidebar" />
 
       <div class="flex">
         <!-- Sidebar -->
-        <Sidebar :sidebarOpen="sidebarOpen" @close-sidebar="sidebarOpen = false" />
-        <main class="flex-auto">
-          <div class="px-4 sm:px-6 lg:px-8 py-8 max-w-full">
+        <Sidebar :open="sidebarOpen" @toggle-sidebar="toggleSidebar" />
+        <main class="flex max-w-7xl w-screen sm:w-11/12">
+          <div class="px-4 sm:px-6 lg:pl-20 py-8 w-full">
             <!-- Dashboard actions -->
             <div class="sm:flex sm:justify-between sm:items-center mb-8">
               <!-- Right: Actions -->
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+// import { ref } from 'vue'
 import Header from '../partials/Header.vue'
 import Sidebar from '../partials/Sidebar.vue'
 import DashboardCard from '../partials/dashboard/DashboardCard.vue'
@@ -46,11 +46,19 @@ export default {
     Sidebar,
     DashboardCard,
   },
-  setup() {
-    const sidebarOpen = ref(false)
-    return {
-      sidebarOpen,
-    }  
+  // setup() {
+  //   const sidebarOpen = ref(false)
+  //   return {
+  //     sidebarOpen,
+  //   }  
+  // },
+  data: () => ({
+    sidebarOpen: false,
+  }),
+  methods: {
+    toggleSidebar() {
+      this.sidebarOpen = !this.sidebarOpen;
+    },
   }
 }
 </script>
