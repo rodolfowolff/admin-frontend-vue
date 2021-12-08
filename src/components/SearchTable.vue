@@ -1,5 +1,5 @@
 <template>
-      <div :id="id" class="flex justify-end min-w-0 flex-1 md:px-8 lg:px-0">
+      <div :id="id" class="hidden lg:flex justify-end min-w-0 flex-1 md:px-8 lg:px-0">
         <div class="flex items-center pl-6 py-3 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
           <div class="w-44">
             <label for="search" class="sr-only">Busca</label>
