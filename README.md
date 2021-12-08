@@ -33,3 +33,6 @@ $ yarn dev
 - Authentication system (JWT)
 - Change language (i18n)
 - mobile (the search needs to be fixed)
+
+*** Refactor and create components ***
+*** Improve layout adjustments as per adobe XD ***
