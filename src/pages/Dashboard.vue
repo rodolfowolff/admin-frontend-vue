@@ -22,7 +22,7 @@
               </div>
             </div>
             <!-- Table -->
-            <DashboardCard />
+            <DashboardCard :msg="$store.state.message" />
           </div>
         </main>
       </div>
