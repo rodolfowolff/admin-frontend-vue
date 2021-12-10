@@ -1,6 +1,5 @@
 <template>
-  <div>
-  <Eye v-on:click="toggleModal()" class="cursor-pointer" />
+  <div v-on:click="toggleModal()">
     <div v-if="showModal" class="overflow-x-hidden overflow-y-auto fixed 
       inset-0 z-50 outline-none focus:outline-none 
       justify-center items-center flex">
