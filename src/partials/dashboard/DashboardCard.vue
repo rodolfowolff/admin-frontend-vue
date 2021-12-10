@@ -16,27 +16,26 @@
   <!-- Table Header -->
   <div v-if="!loading" class="col-span-full xl:col-span-8 bg-white shadow-lg rounded-sm border border-gray-200">
     <div class="overflow-x-auto">
+    
       <header class="flex items-center px-4 py-2">
-       <!-- Table Header  -->
 
-<h1>{{ msg }}</h1>
-  <button @click="showModal = true" class="h-10 w-28 rounded-md text-sm font-semibold text-white bg-at-prymary shadow-md" >
-    Cadastrar
-    <Form
-      v-if="showModal"
-      label="Cadastrar"
-      @users="this.users"
-      @yes="createUser"
-      @no="showModal = false"
-      @close="showModal = false"
-    >
-    </Form>
-  </button>
+        <button @click="showModal = true" class="h-10 w-28 rounded-md text-sm font-semibold text-white bg-at-prymary shadow-md" >
+          Cadastrar
+         <!-- 
+         <Form
+            v-if="showModal"
+            @yes="createUser"
+            @no="showModal = false"
+            @close="showModal = false"
+          >
+          </Form>
+          -->
+        </button>
         <SearchTable />
       </header>
-      <div class="pb-10 align-middle inline-block min-w-full sm:px-4">
 
-        <!-- Table -->
+      <div class="pb-10 align-middle inline-block min-w-full sm:px-4">
+      
         <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
           <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-at-hoverheadertable">
@@ -64,13 +63,14 @@
                 </th>
               </tr>
             </thead>
-
+           
             <tbody class="bg-white divide-y divide-gray-200">
               <div v-if="!users.length">
                 <p class="text-at-gray87 text-base font-bold p-2 leading-relaxed font-display">
                  Sem usuários cadastrados.
                 </p>
               </div>
+          
               <tr v-for="user in users" :key="user._id" class="hover:bg-at-bgtrhover">
                 <td class="px-6 py-4 font-display whitespace-nowrap text-xs text-at-gray87">
                   {{ user.cod }}
@@ -87,7 +87,8 @@
                 <td class="px-6 py-4 font-display whitespace-nowrap text-xs text-at-gray87">
                   {{ user.address }}
                 </td>
-                <!-- Button Look User -->
+                 
+                <!-- Button Look User
                 <td class="relative px-6 py-4 text-left text-sm">
                   <button
                     class="text-at-primaryhover text-at-primaryfocus focus:outline-none focus:shadow-outline"
@@ -107,15 +108,18 @@
                         </g>
                         </g>
                       </svg>
-                      <Modal @User="user.cod" />
                   </button>
-                  <!-- <Modal @User="user.cod" /> -->
+                      -->
+                  <!-- <Modal @User="user.cod" /> 
   
                 </td>
-                <!-- Button Delete -->
+                -->
+                <!-- Button Delete
                 <td class="px-2 py-4">
                   <ModalDelete @fetchDelete="fetchDelete(user.cod)" />
                 </td>
+               
+                -->
               </tr>
             </tbody>
           </table>
@@ -127,8 +131,7 @@
 </template>
 
 <script>
-  import api from "../../api";
-  import axios from "axios";
+  import usersService from '../../api/user';
   import getAge from "../../utils/getAge";
   import { SearchIcon } from '@heroicons/vue/solid'
   import SearchTable from '../../components/SearchTable.vue'
@@ -147,107 +150,35 @@
     },
     data() {
       return {
-        users: [],
-        loading: false,
-        success: false,
-        successMessage: '',
-        errorMessage: '',
-        error: false,
         showModal: false,
         showModalDelete: false,
+        loading: false,
+        users: [],
       };
     },
-    props: {
-      msg: {
-        type: String,
-        default: '',
-      },
-    },
-    methods: {
-      async createUser(data) {
-        this.loading = true;
-        try {
-          const response = await api.post("/users", data);
-          this.success = true;
-          this.successMessage = response.data.message;
-          this.fetchUsers();
-        } catch (error) {
-          this.error = true;
-          this.errorMessage = error.response.data.message;
-        }
+    // props: {},
+    // methods: {
+    //   toggleModal() {
+    //     this.showModal = !this.showModal;
+    //     console.log(this.showModal)
+    //   },
+    // },
+    // computed: {
+    //   users() {
+    //     return this.$store.getters.users;
+    //   },
+    // },
+    mounted() {
+      this.loading = true;
+      usersService.getAllUsers()
+      .then(response => {
         this.loading = false;
-      },
-      async fetchUsers() {
-        this.loading = true
-        try {
-          const response = await api.get('/users')
-          this.users = response.data
-          this.loading = false
-        } catch (error) {
-          this.error = true
-          this.errorMessage = error.message
-          this.loading = false
-        }
-      },
-      // async fetchUser(user) {
-      //   this.loading = true
-      //   try {
-      //     const response = await api.get(`/users/${user}`)
-      //     this.getUser = response.data
-      //     this.loading = false
-      //     console.log(this.user)
-      //   } catch (error) {
-      //     this.error = true
-      //     this.errorMessage = error.message
-      //     this.loading = false
-      //   }
-      // },
-      async fetchDelete(user) {
-        this.loading = true
-        try {
-          await api.delete(`/users/${user}`)
-          this.loading = false
-          this.showModal = false
-          this.showModalDelete = false
-          this.$emit('deleted')
-          this.fetchUsers()
-        } catch (error) {
-          this.error = true
-          this.errorMessage = error.message
-          this.loading = false
-        }
-      },
-      async fetchUpdate(cod) {
-        this.loading = true
-        try {
-          const response = await axios.put(`/api/users/${cod}`, this.user)
-          this.success = true
-          this.successMessage = response.data.message
-          this.loading = false
-          this.fetchUsers()
-        } catch (error) {
-          this.error = true
-          this.errorMessage = error.message
-          this.loading = false
-        }
-      },
-      toggleModal() {
-        this.showModal = !this.showModal;
-        console.log(this.showModal)
-      },
-      // toggleModalDelete() {
-      //   this.showModalDelete = !this.showModalDelete;
-      // }
-    },
-    created() {
-      this.fetchUsers();
-    },
-    computed: {
-      filteredUsers() {
-        return this.users.filter(user => {
-          return user.username.toLowerCase().includes(this.search.toLowerCase())
-        })
-      },
+        this.$store.dispatch('setUsers', response);
+        this.users = this.$store.getters.users;
+      })
+      .catch(error => {
+        console.log(error);
+      });
     },
     setup: () => ({
       getAge
