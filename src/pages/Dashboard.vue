@@ -10,12 +10,9 @@
         <!-- Sidebar -->
         <Sidebar :open="sidebarOpen" @toggle-sidebar="toggleSidebar" />
         <main class="flex max-w-7xl w-screen sm:w-11/12">
-          <div class="px-4 sm:px-6 lg:pl-20 py-8 w-full">
-            <!-- Dashboard actions -->
+          <div class="lg:-ml-28 lg:sidebar-expanded:ml-0 px-4 sm:px-6 lg:pl-20 py-8 w-full">
             <div class="sm:flex sm:justify-between sm:items-center mb-8">
-              <!-- Right: Actions -->
               <div class="grid sm:auto-cols-max justify-start sm:justify-end gap-2">
-                <!-- Add button -->
                 <span class="text-xl font-bold text-at-gray87">
                     Teste Engenheiro de Software Full Stack
                 </span>
