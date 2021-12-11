@@ -1,10 +1,15 @@
 import axios from 'axios';
 
 class usersService {
-  getAllUsers() {
-    return axios.get('http://localhost:3001/api/users').then(resp => {
-      return resp.data;
-    });
+  async getAllUsers() {
+    const resp = await axios.get('http://localhost:3001/api/users');
+    return resp.data;
+  }
+
+  async deleteUser(cod) {
+    const resp = await axios.delete(`http://localhost:3001/api/users/${cod}`);
+    console.log('Usuário deletado com sucesso!', cod);
+    return resp.data;
   }
 }
 
