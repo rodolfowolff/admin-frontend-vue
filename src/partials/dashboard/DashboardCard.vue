@@ -87,16 +87,11 @@
                 <td class="px-6 py-4 font-display whitespace-nowrap text-xs text-at-gray87">
                   {{ user.address }}
                 </td>
-                 
-                <!-- Button Look User
+
+                <!-- Button Look User -->
                 <td class="relative px-6 py-4 text-left text-sm">
-                  <button
-                    class="text-at-primaryhover text-at-primaryfocus focus:outline-none focus:shadow-outline"
-                     v-on:click="toggleModal(user)"
-                  >
-                   
-                    <span class="sr-only">Ver</span>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="13.64" viewBox="0 0 18 13.64" style="fill:#767676">
+                <button>
+                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="13.64" viewBox="0 0 18 13.64" style="fill:#767676">
                         <defs>
                         </defs>
                         <g transform="translate(4 -1)">
@@ -108,18 +103,31 @@
                         </g>
                         </g>
                       </svg>
+                </button>
+                </td>
+
+                <!-- Button Delete User -->
+                 <td class="relative px-6 py-4 text-left text-sm">
+                  <button @click="showModalDelete = true">
+                    <ModalDelete
+                      v-if="showModalDelete"
+                      :cod="user.cod"
+                      @no="showModalDelete = false"
+                      @close="showModalDelete = false"
+                    >
+                    </ModalDelete>
+                    <span class="sr-only">Ver</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16.594" height="18" viewBox="0 0 16.594 18" style="fill:#d83636">
+                    <defs>
+                    </defs>
+                    <path class="a" d="M35.891,2.918H31.637V2.109A2.112,2.112,0,0,0,29.527,0H27.066a2.112,2.112,0,0,0-2.109,2.109v.809H20.7a.7.7,0,1,0,0,1.406h.728l.857,11.109v.01A2.812,2.812,0,0,0,25.09,18H31.5a2.789,2.789,0,0,0,2.8-2.538.7.7,0,1,0-1.4-.128,1.39,1.39,0,0,1-1.4,1.259H25.09a1.4,1.4,0,0,1-1.4-1.274l-.848-11h10.91l-.6,7.786a.7.7,0,0,0,.647.755l.055,0a.7.7,0,0,0,.7-.649l.609-7.894h.728a.7.7,0,0,0,0-1.406Zm-5.66,0H26.363V2.109a.7.7,0,0,1,.7-.7h2.461a.7.7,0,0,1,.7.7Z" transform="translate(-20)"/>
+                    <path class="a" d="M146.672,163a.7.7,0,0,0-.672.733l.352,8.048a.7.7,0,0,0,.7.672h.031a.7.7,0,0,0,.672-.733l-.352-8.048A.7.7,0,0,0,146.672,163Z" transform="translate(-141.57 -157.268)"/>
+                    <path class="a" d="M316.352,163.672,316,171.721a.7.7,0,0,0,.672.733h.031a.7.7,0,0,0,.7-.672l.352-8.048a.7.7,0,0,0-1.4-.061Z" transform="translate(-305.593 -157.269)"/>
+                    <path class="a" d="M236,163.7v8.048a.7.7,0,1,0,1.406,0V163.7a.7.7,0,0,0-1.406,0Z" transform="translate(-228.406 -157.27)"/>
+                    </svg>
                   </button>
-                      -->
-                  <!-- <Modal @User="user.cod" /> 
-  
                 </td>
-                -->
-                <!-- Button Delete
-                <td class="px-2 py-4">
-                  <ModalDelete @fetchDelete="fetchDelete(user.cod)" />
-                </td>
-               
-                -->
+
               </tr>
             </tbody>
           </table>
@@ -133,11 +141,11 @@
 <script>
   import usersService from '../../api/user';
   import getAge from "../../utils/getAge";
-  import { SearchIcon } from '@heroicons/vue/solid'
-  import SearchTable from '../../components/SearchTable.vue'
-  import Modal from '../../components/Modal.vue'
-  import ModalDelete from '../../components/ModalDelete.vue'
-  import Form from '../../components/Form.vue'
+  import { SearchIcon } from '@heroicons/vue/solid';
+  import SearchTable from '../../components/SearchTable.vue';
+  import Modal from '../../components/Modal.vue';
+  import ModalDelete from '../../components/ModalDelete.vue';
+  import Eye from '../../components/icons/Eye.vue';
 
   export default {
     name: "DashboardCard",
@@ -146,7 +154,6 @@
       SearchIcon,
       Modal,
       ModalDelete,
-      Form
     },
     data() {
       return {
@@ -169,12 +176,11 @@
     //   },
     // },
     mounted() {
-      this.loading = true;
-      usersService.getAllUsers()
-      .then(response => {
-        this.loading = false;
+      usersService.getAllUsers().then(response => {
         this.$store.dispatch('setUsers', response);
+        this.loading = true;
         this.users = this.$store.getters.users;
+        this.loading = false;
       })
       .catch(error => {
         console.log(error);

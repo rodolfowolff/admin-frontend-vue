@@ -1,80 +1,110 @@
 <template>
-  <div>
-  <Trash v-on:click="toggleModal()" class="cursor-pointer" />
-    <div v-if="showModal" class="overflow-x-hidden overflow-y-auto fixed 
-      inset-0 z-50 outline-none focus:outline-none 
-      justify-center items-center flex">
-      <div class="relative h-52 w-96 my-6 mx-auto max-w-6xl">
-        <!--content-->
-        <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full
-           bg-white outline-none focus:outline-none">
-          <!--header-->
-          <div class="flex items-start justify-between p-5 border-b border-solid border-gray-200 rounded-t w-11/12 mx-auto">
-            <h3 class="text-lg font-semibold text-at-gray87">
-              Excluir
-            </h3>
-            <button class="p-0 ml-auto bg-at-border border-0 rounded-full text-at-gray54 float-right" 
-              v-on:click="toggleModal()">
-              <span class="bg-transparent text-at-gray54 h-6 w-6 text-sm block outline-none focus:outline-none">
-                x
-              </span>
-            </button>
-          </div>
-          <!--body-->
-          <div class="relative p-6 flex-auto w-11/12 mx-auto">
-            <span class="bg-at-error text-white text-center border-0 rounded-full p-0 float-left h-6 w-6 
-              text-sm block outline-none focus:outline-none mr-2 text-base font-medium">
-              x
-            </span>
-            <p class="text-at-gray87 text-sm leading-relaxed font-display">
-              Confirma a exclusão deste registro?
-            </p>
-          </div>
-          <!--footer-->
-          <div class="flex items-center justify-end p-6 border-t border-solid border-gray-200 rounded-b w-11/12 mx-auto">
-            <button class="text-at-error bg-transparent border border-solid border-at-error hover:bg-at-error 
-              hover:text-white active:bg-red-600 font-semibold text-sm w-28 h-10 rounded outline-none 
-                focus:outline-none mr-1 ease-linear transition-all duration-150 shadow-md" 
-            type="button" 
-            v-on:click="toggleModal()">
-              Cancelar
-            </button>
-            <button class="text-white bg-at-error border border-solid border-white hover:bg-red-600
-               font-semibold text-sm w-20 h-10 rounded outline-none focus:outline-none ml-1 shadow-md" 
-              type="button" 
-              @click="fetchDelete()">
-              Excluir
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div v-if="showModal" class="opacity-25 fixed inset-0 z-40 bg-black"></div>
-  </div>
+  <TransitionRoot as="template" :show="open">
+    <Dialog as="div" class="fixed inset-0 overflow-y-auto z-60" @click="$emit('close')">
+      <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <TransitionChild as="template" enter="ease-out duration-300" 
+        enter-from="opacity-0" 
+        enter-to="opacity-100" 
+        leave="ease-in duration-200" 
+        leave-from="opacity-100" 
+        leave-to="opacity-0">
+          <DialogOverlay class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+        </TransitionChild>
 
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+          &#8203;
+        </span>
+        <TransitionChild 
+          as="template" 
+          enter="ease-out duration-300" 
+          enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" 
+          enter-to="opacity-100 translate-y-0 sm:scale-100" 
+          leave="ease-in duration-200" 
+          leave-from="opacity-100 translate-y-0 sm:scale-100" 
+          leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+          <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden 
+          shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+            <div class="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
+              <button 
+                type="button" 
+                class="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none 
+                focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" 
+                @click="$emit('close')">
+                <span class="sr-only">Close</span>
+                <XIcon class="h-6 w-6" aria-hidden="true" />
+              </button>
+            </div>
+            <div class="sm:flex sm:items-start">
+              <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full 
+              bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                <ExclamationIcon class="h-6 w-6 text-red-600" aria-hidden="true" />
+              </div>
+              <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                <DialogTitle as="h3" class="text-lg leading-6 font-medium text-gray-900">
+                  Excluir
+                </DialogTitle>
+                <div class="mt-2">
+                  <p class="text-sm text-gray-500">
+                    Confirma a exclusão deste registro?
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+              <button 
+                type="button" 
+                class="text-white bg-at-error border border-solid border-white hover:bg-red-700
+               font-semibold text-sm w-full h-10 rounded outline-none focus:outline-none shadow-md
+               sm:w-full sm:text-sm" 
+                @click="deleteUser">
+                Excluir
+              </button>
+              <button 
+                type="button" 
+                class="text-at-error bg-transparent border border-solid border-at-error hover:bg-red-600
+              hover:text-white active:bg-red-600 font-semibold text-sm w-full h-10 rounded outline-none 
+                focus:outline-none mr-1 ease-linear transition-all duration-150 shadow-md sm:ml-3 sm:w-full 
+                 sm:text-sm" 
+                @click="$emit('no')">
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </TransitionChild>
+      </div>
+    </Dialog>
+  </TransitionRoot>
 </template>
 
 <script>
-import Trash from './icons/Trash.vue';
+import { ref } from 'vue'
+import { Dialog, DialogOverlay, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
+import { ExclamationIcon, XIcon } from '@heroicons/vue/outline'
 
 export default {
-  name: "ModalDelete",
-    components: {
-    Trash,
+  name: 'ModalDelete',
+  props: ['cod'],
+  components: {
+    Dialog,
+    DialogOverlay,
+    DialogTitle,
+    TransitionChild,
+    TransitionRoot,
+    ExclamationIcon,
+    XIcon,
   },
-  data() {
+  setup() {
+    const open = ref(true)
     return {
-      showModal: false,
+      open,
     }
   },
   methods: {
-    toggleModal() {
-      this.showModal = !this.showModal;
-    },
-    fetchDelete() {
-      this.$emit('fetchDelete');
-    },
-  }
+    deleteUser() {
+      this.$store.dispatch('deleteUser', this.cod)
+       console.log('this.cod!', this.cod);
+      this.$router.push({ path: '/'})
+    }
+  },
 }
-
 </script>
