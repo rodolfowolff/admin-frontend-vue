@@ -4,7 +4,7 @@ const routes = [
   {
     path: '/',
     name: "Home",
-    component: () => import('./pages/Dashboard.vue')
+    component: () => import('./pages/Dashboard.vue'),
   },
   {
     path: "/:pathMatch(.*)*",
