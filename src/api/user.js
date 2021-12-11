@@ -8,8 +8,13 @@ class usersService {
 
   async deleteUser(cod) {
     const resp = await axios.delete(`http://localhost:3001/api/users/${cod}`);
-    console.log('Usuário deletado com sucesso!', cod);
     return resp.data;
+  }
+
+  async createUser(user) {
+    const resp = await axios
+      .post('http://localhost:3001/api/users', user)
+      .then(response => response.data);
   }
 }
 
