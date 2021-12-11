@@ -5,6 +5,13 @@ const routes = [
     path: '/',
     name: "Home",
     component: () => import('./pages/Dashboard.vue'),
+    children: [
+      {
+        path: "/create",
+        name: "CreateUser",
+        component: () => import("./components/Modal.vue"),
+      }
+    ]
   },
   {
     path: "/:pathMatch(.*)*",
