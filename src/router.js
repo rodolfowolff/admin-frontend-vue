@@ -10,6 +10,7 @@ const routes = [
         path: "/create",
         name: "CreateUser",
         component: () => import("./components/Modal.vue"),
+        props: true,
       }
     ]
   },
@@ -25,4 +26,4 @@ const router = createRouter({
   routes
 });
 
-export default router;;
+export default router;
