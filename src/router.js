@@ -10,6 +10,11 @@ const routes = [
         path: "/create",
         name: "CreateUser",
         component: () => import("./components/Modal.vue"),
+      },
+      {
+        path: "/delete",
+        name: "DeleteUser",
+        component: () => import("./components/ModalDelete.vue"),
         props: true,
       }
     ]
