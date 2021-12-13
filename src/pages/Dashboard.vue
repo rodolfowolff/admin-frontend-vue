@@ -33,7 +33,6 @@
 </template>
 
 <script>
-// import { ref } from 'vue'
 import Header from '../partials/Header.vue'
 import Sidebar from '../partials/Sidebar.vue'
 import DashboardCard from '../partials/dashboard/DashboardCard.vue'
@@ -44,17 +43,12 @@ export default {
     Sidebar,
     DashboardCard,
   },
-  // setup() {
-  //   const sidebarOpen = ref(false)
-  //   return {
-  //     sidebarOpen,
-  //   }  
-  // },
   data: () => ({
     sidebarOpen: false,
   }),
   methods: {
-    toggleSidebar() {
+    toggleSidebar(evt) {
+      evt.preventDefault()
       this.sidebarOpen = !this.sidebarOpen;
     },
   }
