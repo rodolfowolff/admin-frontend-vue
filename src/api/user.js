@@ -3,7 +3,7 @@ import axios from 'axios';
 class usersService {
   async createUser(payload) {
     const resp = await axios.post('http://localhost:3001/api/users', payload);
-    return resp.data;
+    return resp;
   }
 
   async getAllUsers() {
