@@ -1,6 +1,6 @@
 <template>
   <TransitionRoot as="template" :show="open">
-    <Dialog as="div" class="fixed inset-0 overflow-y-auto z-60" @click="$emit('close')">
+    <Dialog as="div" class="fixed inset-0 overflow-y-auto z-60">
       <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <TransitionChild 
           as="template" 
@@ -28,10 +28,10 @@
           shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
             <div class="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
               <button 
-                type="button" 
+                type="button"
                 class="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none 
                 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" 
-                @click="$emit('close')">
+                @click="onReset">
                 <span class="sr-only">Close</span>
                 <XIcon class="h-6 w-6" aria-hidden="true" />
               </button>
@@ -62,12 +62,12 @@
                 Excluir
               </button>
               <button 
-                type="button" 
+                type="button"
                 class="text-at-error bg-transparent border border-solid border-at-error hover:bg-red-600
               hover:text-white active:bg-red-600 font-semibold text-sm w-full h-10 rounded outline-none 
                 focus:outline-none mr-1 ease-linear transition-all duration-150 shadow-md sm:ml-3 sm:w-full 
-                 sm:text-sm" 
-                @click="$emit('no')">
+                 sm:text-sm"
+                 @click="onReset">
                 Cancelar
               </button>
             </div>
@@ -104,9 +104,11 @@ export default {
   methods: {
     deleteUser() {
       this.$store.dispatch('deleteUser', this.cod)
-       console.log('this.cod!', this.cod);
       this.$router.push({ path: '/'})
-    }
-  },
+    },
+    onReset() {
+      this.$router.push({ path: '/' })
+    },
+  }
 }
 </script>
