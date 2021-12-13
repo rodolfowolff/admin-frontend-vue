@@ -11,7 +11,6 @@ export default {
   },
   deleteUser({ commit }, cod) {
     UserService.deleteUser(cod).then(() => {
-      console.log('Usuário deletado com sucesso!', cod);
       commit('deleteUser', cod);
     });
   }

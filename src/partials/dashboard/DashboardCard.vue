@@ -14,27 +14,22 @@
   </div>
 
   <!-- Table Header -->
-  <div v-if="!loading" class="col-span-full xl:col-span-8 bg-white shadow-lg rounded-sm border border-gray-200">
+  <div class="col-span-full xl:col-span-8 bg-white shadow-lg rounded-sm border border-gray-200">
     <div class="overflow-x-auto">
     
       <header class="flex items-center px-4 py-2">
 
-        <button @click="showModal = true" class="h-10 w-28 rounded-md text-sm font-semibold text-white bg-at-prymary shadow-md" >
+        <button 
+          @click="createUser"
+          v-if="!showModal"
+          class="h-10 w-28 rounded-md text-sm font-semibold text-white bg-at-prymary shadow-md"
+        >
           Cadastrar
-         <!-- 
-         <Form
-            v-if="showModal"
-            @yes="createUser"
-            @no="showModal = false"
-            @close="showModal = false"
-          >
-          </Form>
-          -->
         </button>
         <SearchTable />
       </header>
 
-      <div class="pb-10 align-middle inline-block min-w-full sm:px-4">
+      <div v-if="!loading" class="pb-10 align-middle inline-block min-w-full sm:px-4">
       
         <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
           <table class="min-w-full divide-y divide-gray-200">
@@ -89,7 +84,7 @@
                 </td>
 
                 <!-- Button Look User -->
-                <td class="relative px-6 py-4 text-left text-sm">
+                <td>
                 <button>
                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="13.64" viewBox="0 0 18 13.64" style="fill:#767676">
                         <defs>
@@ -107,7 +102,7 @@
                 </td>
 
                 <!-- Button Delete User -->
-                 <td class="relative px-6 py-4 text-left text-sm">
+                 <td>
                   <button @click="showModalDelete = true">
                     <ModalDelete
                       v-if="showModalDelete"
@@ -127,7 +122,7 @@
                     </svg>
                   </button>
                 </td>
-
+              <router-view :create="create"></router-view>
               </tr>
             </tbody>
           </table>
@@ -177,14 +172,24 @@
     // },
     mounted() {
       usersService.getAllUsers().then(response => {
-        this.$store.dispatch('setUsers', response);
         this.loading = true;
+        this.$store.dispatch('setUsers', response);
         this.users = this.$store.getters.users;
         this.loading = false;
       })
       .catch(error => {
         console.log(error);
       });
+    },
+    methods: {
+      createUser() {
+        this.$router.push({
+          name: 'CreateUser',
+          params: {
+            path: `/create`,
+          },
+        })
+      },
     },
     setup: () => ({
       getAge
