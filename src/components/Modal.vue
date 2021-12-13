@@ -88,10 +88,13 @@
                         <input 
                           id="dateofbirth" 
                           name="dateofbirth" 
-                          type="date" 
+                          type="tel"
+                          maxlength="10"
+                          placeholder="dd/mm/yyyy"
                           v-model="userAddForm.dateofbirth"
                           autocomplete="bday" 
-                          class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" />
+                          class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" 
+                        />
                       </div>
                     </div>
 
@@ -147,7 +150,6 @@
                         </select>
                       </div>
                     </div>
-
                     <div class="sm:col-span-2">
                       <label for="city" class="block text-sm font-medium text-gray-700">
                         Cidade
@@ -173,13 +175,13 @@
                         type="text" 
                         name="village" 
                         id="village" 
+                        pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
                         v-model="userAddForm.village"
                         autocomplete="address-level3" 
                         class="shadow-sm focus:ring-at-prymary focus:border-at-prymary block w-full 
                           sm:text-sm border-gray-300 rounded-md" />
                       </div>
                     </div>
-
 
                   </div>
                 </div>
@@ -217,6 +219,7 @@
 <script>
 import axios from 'axios'
 import { ref } from 'vue'
+import formatDate from '../utils/formatDateBR.js'
 import { Dialog, DialogOverlay, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { ExclamationIcon, XIcon } from '@heroicons/vue/outline'
 
@@ -236,25 +239,16 @@ export default {
       userAddForm: {
         cod: '',
         username: '',
-        // dateofbirth: '',
+        dateofbirth: '',
         address: [],
         githubusername: '',
       },
-      // isLoading: false,
     }
   },
   setup() {
     const open = ref(true);
-    // const userAddForm = reactive({
-    //   cod: "2",
-    //   username: "222",
-    //   dateofbirth: "12/11/1981",
-    //   address: ["rux", "string"],
-    //   githubusername: "string"
-    // });
     return {
       open,
-      // userAddForm
     }
   },
   methods: {
@@ -262,24 +256,18 @@ export default {
       this.$store.dispatch('createUser', payload);
       this.$router.push({ path: '/' });
     },
-    // initForm() {
-    //   this.userAddForm.cod = '';
-    //   this.userAddForm.username = '';
-    //   this.userAddForm.dateofbirth = '';
-    //   this.userAddForm.address = [];
-    //   this.userAddForm.githubusername = '';
-    // },
     onSubmit(evt) {
       evt.preventDefault();
       const payload = {
         cod: this.userAddForm.cod,
         username: this.userAddForm.username,
-        // dateofbirth: this.userAddForm.dateofbirth,
+        dateofbirth: formatDate(this.userAddForm.dateofbirth),
         // address: this.userAddForm.address,
         githubusername: this.userAddForm.githubusername,
         address: ["rua", "123456", "bairro"],
       };
       this.createUser(payload);
+      console.log("payload", payload);
       // this.initForm();
     },
     onReset() {
