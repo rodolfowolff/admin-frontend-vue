@@ -4,6 +4,7 @@ export async function getCEPByAddress(address) {
     const data = await response.json();
     return data;
   } catch (error) {
+    console.log(error);
     return false;
   }
 }
