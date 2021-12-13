@@ -34,7 +34,6 @@
                 <XIcon class="h-6 w-6" aria-hidden="true" />
               </button>
             </div>
-
             <form @submit="onSubmit" @reset="onReset" class="space-y-8 divide-y divide-gray-200">
               <div class="space-y-4 divide-y divide-gray-200">
                 <div>
@@ -42,6 +41,7 @@
                     Adicionar
                   </h3>
                 </div>
+
 
                 <div class="pt-0">
                   <div class="mt-3 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
@@ -180,10 +180,11 @@
                       </div>
                     </div>
 
+
                   </div>
                 </div>
               </div>
-
+      
               <div class="pt-5">
                 <div class="flex justify-end">
                   <button 
@@ -204,7 +205,8 @@
                   </button>
                 </div>
               </div>
-              </form>
+
+            </form>
           </div>
         </TransitionChild>
       </div>
@@ -214,12 +216,12 @@
 
 <script>
 import axios from 'axios'
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 import { Dialog, DialogOverlay, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { ExclamationIcon, XIcon } from '@heroicons/vue/outline'
 
 export default {
-  name: 'ModalDelete',
+  name: 'Modal',
   components: {
     Dialog,
     DialogOverlay,
@@ -234,11 +236,11 @@ export default {
       userAddForm: {
         cod: '',
         username: '',
-        dateofbirth: '',
+        // dateofbirth: '',
         address: [],
         githubusername: '',
       },
-      isLoading: false,
+      // isLoading: false,
     }
   },
   setup() {
@@ -256,56 +258,31 @@ export default {
     }
   },
   methods: {
-    // createUser() {
-    //   this.$store.dispatch('createUser', JSON.stringify(this.userAddForm));
-    //    console.log('this.cod!', JSON.stringify(this.userAddForm));
-    //   this.$router.push({ path: '/'})
-    // }
     createUser(payload) {
-      console.log('payload chegou aqui', payload);
-      axios.post('http://localhost:3001/api/users', payload)
-        .then(response => {
-          console.log('response', response.data);
-          this.$router.push({ path: '/'})
-        })
-        .catch(error => {
-          console.log('error', error);
-        })
-      // axios.post('http://localhost:3001/api/users', payload)
-        // .then(response => {
-        //   return response.data
-        // })
-        // .catch((error) => {
-        // console.log(error)
-        // this.$router.push({ path: '/' })
-        // })
+      this.$store.dispatch('createUser', payload);
+      this.$router.push({ path: '/' });
     },
-    initForm() {
-      this.userAddForm.cod = '';
-      this.userAddForm.username = '';
-      this.userAddForm.dateofbirth = '';
-      this.userAddForm.address = [];
-      this.userAddForm.githubusername = '';
-    },
+    // initForm() {
+    //   this.userAddForm.cod = '';
+    //   this.userAddForm.username = '';
+    //   this.userAddForm.dateofbirth = '';
+    //   this.userAddForm.address = [];
+    //   this.userAddForm.githubusername = '';
+    // },
     onSubmit(evt) {
       evt.preventDefault();
       const payload = {
-          cod: "4",
-          username: "222",
-          dateofbirth: "12/11/1981",
-          address: ["rux", "string"],
-          githubusername: "string",
-        // cod: this.userAddForm.cod,
-        // username: this.userAddForm.username,
+        cod: this.userAddForm.cod,
+        username: this.userAddForm.username,
         // dateofbirth: this.userAddForm.dateofbirth,
         // address: this.userAddForm.address,
-        // githubusername: this.userAddForm.githubusername,
+        githubusername: this.userAddForm.githubusername,
+        address: ["rua", "123456", "bairro"],
       };
       this.createUser(payload);
-      this.initForm();
+      // this.initForm();
     },
-    onReset(evt) {
-      evt.preventDefault();
+    onReset() {
       this.$router.push({ path: '/' })
     },
   },
