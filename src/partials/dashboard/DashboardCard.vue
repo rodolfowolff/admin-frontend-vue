@@ -21,7 +21,6 @@
 
         <button 
           @click="createUser"
-          v-if="!showModal"
           class="h-10 w-28 rounded-md text-sm font-semibold text-white bg-at-prymary shadow-md"
         >
           Cadastrar
@@ -103,14 +102,7 @@
 
                 <!-- Button Delete User -->
                  <td>
-                  <button @click="showModalDelete = true">
-                    <ModalDelete
-                      v-if="showModalDelete"
-                      :cod="user.cod"
-                      @no="showModalDelete = false"
-                      @close="showModalDelete = false"
-                    >
-                    </ModalDelete>
+                  <button @click="deleteUser(user.cod)">
                     <span class="sr-only">Ver</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16.594" height="18" viewBox="0 0 16.594 18" style="fill:#d83636">
                     <defs>
@@ -122,7 +114,6 @@
                     </svg>
                   </button>
                 </td>
-              <router-view :create="create"></router-view>
               </tr>
             </tbody>
           </table>
@@ -131,6 +122,7 @@
 
     </div>
   </div>
+   <router-view></router-view>
 </template>
 
 <script>
@@ -138,40 +130,27 @@
   import getAge from "../../utils/getAge";
   import { SearchIcon } from '@heroicons/vue/solid';
   import SearchTable from '../../components/SearchTable.vue';
-  import Modal from '../../components/Modal.vue';
-  import ModalDelete from '../../components/ModalDelete.vue';
-  import Eye from '../../components/icons/Eye.vue';
 
   export default {
     name: "DashboardCard",
     components: {
       SearchTable,
       SearchIcon,
-      Modal,
-      ModalDelete,
     },
     data() {
       return {
-        showModal: false,
-        showModalDelete: false,
         loading: false,
         users: [],
       };
     },
-    // props: {},
-    // methods: {
-    //   toggleModal() {
-    //     this.showModal = !this.showModal;
-    //     console.log(this.showModal)
-    //   },
-    // },
     // computed: {
     //   users() {
     //     return this.$store.getters.users;
     //   },
     // },
     mounted() {
-      usersService.getAllUsers().then(response => {
+      usersService.getAllUsers()
+      .then(response => {
         this.loading = true;
         this.$store.dispatch('setUsers', response);
         this.users = this.$store.getters.users;
@@ -187,6 +166,16 @@
           name: 'CreateUser',
           params: {
             path: `/create`,
+          },
+        })
+      },
+      deleteUser(param) {
+
+        this.$router.push({
+          name: 'DeleteUser',
+          params: {
+            path: `/delete`,
+            cod: param,
           },
         })
       },
