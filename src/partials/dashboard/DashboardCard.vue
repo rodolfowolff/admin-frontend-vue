@@ -79,7 +79,7 @@
                   {{ user.githubusername }}
                 </td>
                 <td class="px-6 py-4 font-display whitespace-nowrap text-xs text-at-gray87">
-                  {{ user.address }}
+                  {{ user.rua }}, {{ user.numero }} - {{ user.bairro }} - {{ user.cidade }} / {{ user.estado }}
                 </td>
 
                 <!-- Button Look User -->
