@@ -21,18 +21,16 @@ $ yarn dev
 
 ## Features and Observations
 
-- [ ] - Create User
+- [x] - Create User (missing input checks)
 - [x] - Read User
 - [ ] - Update User
 - [x] - Delete User
 
 # Next steps
 - Unitary tests
-- Zip (viacep)
 - User (github)
 - Authentication system (JWT)
 - Change language (i18n)
-- mobile (the search needs to be fixed)
 
 *** Refactor and create components ***
 *** Improve layout adjustments as per adobe XD ***
