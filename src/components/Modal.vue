@@ -42,7 +42,6 @@
                   </h3>
                 </div>
 
-
                 <div class="pt-0">
                   <div class="mt-3 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                     <div class="sm:col-span-3">
@@ -125,6 +124,7 @@
                           type="text" 
                           name="cep" 
                           id="cep" 
+                          @input="getCep($event)"
                           v-model="userAddForm.cep"
                           autocomplete="postal-code" 
                           class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" 
@@ -134,59 +134,101 @@
                     </div>
 
                     <div class="sm:col-span-1">
-                      <label for="country" class="block text-sm font-medium text-gray-700">
+                      <label for="uf" class="block text-sm font-medium text-gray-700">
                         Estado
                       </label>
                       <div class="mt-1">
-                        <select 
-                          id="country" 
-                          name="country" 
-                          v-model="userAddForm.country"
-                          autocomplete="country-name" 
-                          class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
-                           <option value="">---</option>
-                          <option value="parana">Paraná</option>
-                          <option value="maringa">Maringa</option>
-                        </select>
+                        <input 
+                        type="text" 
+                        name="uf" 
+                        id="uf" 
+                        v-model="userAddForm.uf"
+                        class="shadow-sm focus:ring-at-prymary focus:border-at-prymary block w-full 
+                          sm:text-sm border-gray-300 rounded-md" />
                       </div>
                     </div>
+                    
                     <div class="sm:col-span-2">
-                      <label for="city" class="block text-sm font-medium text-gray-700">
+                      <label for="localidade" class="block text-sm font-medium text-gray-700">
                         Cidade
                       </label>
                       <div class="mt-1">
                         <input 
                         type="text" 
-                        name="city" 
-                        id="city" 
-                        v-model="userAddForm.city"
-                        autocomplete="address-level2" 
+                        name="localidade" 
+                        id="localidade" 
+                        v-model="userAddForm.localidade"
                         class="shadow-sm focus:ring-at-prymary focus:border-at-prymary block w-full 
                           sm:text-sm border-gray-300 rounded-md" />
                       </div>
                     </div>
 
                     <div class="sm:col-span-2">
-                      <label for="village" class="block text-sm font-medium text-gray-700">
+                      <label for="bairro" class="block text-sm font-medium text-gray-700">
                         Bairro
                       </label>
                       <div class="mt-1">
                         <input 
                         type="text" 
-                        name="village" 
-                        id="village" 
-                        pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"
-                        v-model="userAddForm.village"
+                        name="bairro" 
+                        id="bairro" 
+                        v-model="userAddForm.bairro"
+                        class="shadow-sm focus:ring-at-prymary focus:border-at-prymary block w-full 
+                          sm:text-sm border-gray-300 rounded-md" />
+                      </div>
+                    </div>
+
+                    <div class="sm:col-span-3">
+                      <label for="logradouro" class="block text-sm font-medium text-gray-700">
+                        Rua
+                      </label>
+                        <div class="mt-1">
+                          <input 
+                            type="text" 
+                            name="logradouro" 
+                            id="logradouro" 
+                            v-model="userAddForm.logradouro"
+                            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" 
+                            placeholder="Rua Brasil"
+                          />
+                        </div>
+                    </div>
+                       <div class="sm:col-span-1">
+                      <label for="numero" class="block text-sm font-medium text-gray-700">
+                        Número
+                      </label>
+                      <div class="mt-1">
+                        <input 
+                        type="text" 
+                        name="numero" 
+                        id="numero" 
+                        v-model="userAddForm.numero"
                         autocomplete="address-level3" 
                         class="shadow-sm focus:ring-at-prymary focus:border-at-prymary block w-full 
                           sm:text-sm border-gray-300 rounded-md" />
                       </div>
                     </div>
 
+                   <div class="sm:col-span-2">
+                      <label for="complemento" class="block text-sm font-medium text-gray-700">
+                        Complemento
+                      </label>
+                      <div class="mt-1">
+                        <input 
+                        type="text" 
+                        name="complemento" 
+                        id="complemento" 
+                        v-model="userAddForm.complemento"
+                        autocomplete="address-level3" 
+                        class="shadow-sm focus:ring-at-prymary focus:border-at-prymary block w-full 
+                          sm:text-sm border-gray-300 rounded-md" />
+                      </div>
+                    </div>
+
+                    </div>
                   </div>
                 </div>
-              </div>
-      
+            
               <div class="pt-5">
                 <div class="flex justify-end">
                   <button 
@@ -217,8 +259,8 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { ref } from 'vue'
+import getCEPByAddress from '../api/cep'
 import formatDate from '../utils/formatDateBR.js'
 import { Dialog, DialogOverlay, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { ExclamationIcon, XIcon } from '@heroicons/vue/outline'
@@ -240,7 +282,13 @@ export default {
         cod: '',
         username: '',
         dateofbirth: '',
-        address: [],
+        cep: '',
+        estado: '',
+        cidade: '',
+        bairro: '',
+        rua: '',
+        numero: '',
+        complemento: '',
         githubusername: '',
       },
     }
@@ -252,6 +300,20 @@ export default {
     }
   },
   methods: {
+    getCep(event) {
+      const cep = event.target.value
+      if (cep.length >= 8) {
+        cep.replace(/[^0-9]/g, '')
+        getCEPByAddress(cep)
+          .then(response => {
+            this.userAddForm = response
+            console.log("response", response)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      }
+    },
     createUser(payload) {
       this.$store.dispatch('createUser', payload);
       this.$router.push({ path: '/' });
@@ -262,12 +324,18 @@ export default {
         cod: this.userAddForm.cod,
         username: this.userAddForm.username,
         dateofbirth: formatDate(this.userAddForm.dateofbirth),
-        // address: this.userAddForm.address,
+        cep: this.userAddForm.cep,
+        estado: this.userAddForm.estado,
+        cidade: this.userAddForm.cidade,
+        bairro: this.userAddForm.bairro,
+        rua: this.userAddForm.rua,
+        numero: this.userAddForm.numero,
+        complemento: this.userAddForm.complemento,
         githubusername: this.userAddForm.githubusername,
-        address: ["rua", "123456", "bairro"],
+        address: this.userAddForm.address,
       };
-      this.createUser(payload);
       console.log("payload", payload);
+      this.createUser(payload);
       // this.initForm();
     },
     onReset() {
