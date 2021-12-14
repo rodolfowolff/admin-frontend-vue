@@ -44,24 +44,23 @@
 
                 <div class="pt-0">
                   <div class="mt-3 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                    <div class="sm:col-span-3">
+                    <div class="sm:col-span-2">
                       <label for="cod" class="block text-sm font-medium text-gray-700">
                         ID
                       </label>
                       <div class="mt-1">
                         <input 
-                          type="text" 
+                          type="number" 
                           name="cod" 
                           id="cod" 
                           v-model="userAddForm.cod"
-                          autocomplete="given-name" 
                           class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                           placeholder="Digite um ID"
                         />
                       </div>
                     </div>
 
-                    <div class="sm:col-span-3">
+                    <div class="sm:col-span-4">
                       <label for="username" class="block text-sm font-medium text-gray-700">
                         Nome
                       </label>
@@ -71,7 +70,6 @@
                           name="username" 
                           id="username" 
                           v-model="userAddForm.username"
-                          autocomplete="name" 
                           class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm 
                             border-gray-300 rounded-md" 
                           placeholder="Digite um nome"
@@ -91,7 +89,6 @@
                           maxlength="10"
                           placeholder="dd/mm/yyyy"
                           v-model="userAddForm.dateofbirth"
-                          autocomplete="bday" 
                           class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" 
                         />
                       </div>
@@ -107,7 +104,6 @@
                           name="githubusername" 
                           id="githubusername" 
                           v-model="userAddForm.githubusername"
-                          autocomplete="github" 
                           class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm 
                             border-gray-300 rounded-md" 
                           placeholder="Usuário do Github"
@@ -203,7 +199,6 @@
                         name="numero" 
                         id="numero" 
                         v-model="userAddForm.numero"
-                        autocomplete="address-level3" 
                         class="shadow-sm focus:ring-at-prymary focus:border-at-prymary block w-full 
                           sm:text-sm border-gray-300 rounded-md" />
                       </div>
@@ -219,7 +214,6 @@
                         name="complemento" 
                         id="complemento" 
                         v-model="userAddForm.complemento"
-                        autocomplete="address-level3" 
                         class="shadow-sm focus:ring-at-prymary focus:border-at-prymary block w-full 
                           sm:text-sm border-gray-300 rounded-md" />
                       </div>
@@ -283,10 +277,10 @@ export default {
         username: '',
         dateofbirth: '',
         cep: '',
-        estado: '',
-        cidade: '',
+        uf: '',
+        localidade: '',
         bairro: '',
-        rua: '',
+        logradouro: '',
         numero: '',
         complemento: '',
         githubusername: '',
@@ -306,8 +300,11 @@ export default {
         cep.replace(/[^0-9]/g, '')
         getCEPByAddress(cep)
           .then(response => {
-            this.userAddForm = response
-            console.log("response", response)
+            this.userAddForm.cep = response.cep
+            this.userAddForm.uf = response.uf
+            this.userAddForm.localidade = response.localidade
+            this.userAddForm.bairro = response.bairro
+            this.userAddForm.logradouro = response.logradouro
           })
           .catch(error => {
             console.log(error)
@@ -325,18 +322,16 @@ export default {
         username: this.userAddForm.username,
         dateofbirth: formatDate(this.userAddForm.dateofbirth),
         cep: this.userAddForm.cep,
-        estado: this.userAddForm.estado,
-        cidade: this.userAddForm.cidade,
+        uf: this.userAddForm.uf,
+        localidade: this.userAddForm.localidade,
         bairro: this.userAddForm.bairro,
-        rua: this.userAddForm.rua,
+        logradouro: this.userAddForm.logradouro,
         numero: this.userAddForm.numero,
         complemento: this.userAddForm.complemento,
         githubusername: this.userAddForm.githubusername,
-        address: this.userAddForm.address,
       };
       console.log("payload", payload);
       this.createUser(payload);
-      // this.initForm();
     },
     onReset() {
       this.$router.push({ path: '/' })
