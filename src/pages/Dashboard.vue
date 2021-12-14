@@ -9,8 +9,8 @@
       <div class="flex">
         <!-- Sidebar -->
         <Sidebar :open="sidebarOpen" @toggle-sidebar="toggleSidebar" />
-        <main class="flex max-w-7xl w-screen lg:w-11/12">
-          <div class="lg:-ml-28 lg:sidebar-expanded:ml-0 px-4 lg:px-6 lg:pl-24 py-8 w-full">
+        <main class="flex max-w-7xl w-full">
+          <div class="lg:pl-24 lg:sidebar-expanded:ml-28 p-6 py-8 w-full">
             <div class="sm:flex sm:justify-between sm:items-center mb-8">
               <div class="grid sm:auto-cols-max justify-start sm:justify-end gap-2">
                 <span class="text-xl font-bold text-at-gray87">
