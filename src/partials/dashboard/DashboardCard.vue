@@ -67,26 +67,26 @@
           
               <tr v-for="user in users" :key="user._id" class="hover:bg-at-bgtrhover">
                 <td class="px-6 py-4 font-display whitespace-nowrap text-xs text-at-gray87">
-                  {{ user.cod }}
+                  {{ user.cod && user.cod}}
                 </td>
                 <td class="px-6 py-4 font-display whitespace-nowrap text-xs text-at-gray87">
-                  {{ user.username }}
+                  {{ user.username && user.username }}
                 </td>
                 <td class="px-6 py-4 font-display whitespace-nowrap text-xs text-at-gray87">
-                  {{ getAge(user.dateofbirth) }}
+                  {{ user.dateofbirth && getAge(user.dateofbirth) }}
                 </td>
                 <td class="px-6 py-4 font-display whitespace-nowrap text-xs text-at-gray87">
-                  {{ user.githubusername }}
+                  {{ user.githubusername && user.githubusername }}
                 </td>
                 <td class="px-6 py-4 font-display whitespace-nowrap text-xs text-at-gray87">
-                  {{ user.rua }}, {{ user.numero }} - {{ user.bairro }} - {{ user.cidade }} / {{ user.estado }}
+                  {{ user.logradouro && user.logradouro + ', '}} {{ user.numero && user.numero +' - '}} {{ user.bairro && user.bairro + ' - '}} {{ user.localidade && user.localidade + '/' }} {{ user.uf && user.uf }}
                 </td>
 
                 <!-- Button Look User -->
                 <td>
-                <button>
-                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="13.64" viewBox="0 0 18 13.64" style="fill:#767676">
-                        <defs>
+                  <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="13.64" viewBox="0 0 18 13.64" style="fill:#767676">
+                      <defs>
                         </defs>
                         <g transform="translate(4 -1)">
                         <g transform="translate(-4 1)">
@@ -97,13 +97,12 @@
                         </g>
                         </g>
                       </svg>
-                </button>
+                  </button>
                 </td>
 
                 <!-- Button Delete User -->
                  <td>
                   <button @click="deleteUser(user.cod)">
-                    <span class="sr-only">Ver</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16.594" height="18" viewBox="0 0 16.594 18" style="fill:#d83636">
                     <defs>
                     </defs>
