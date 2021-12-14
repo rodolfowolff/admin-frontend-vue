@@ -24,8 +24,9 @@
           leave="ease-in duration-200" 
           leave-from="opacity-100 translate-y-0 sm:scale-100" 
           leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-          <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden 
-          shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+          <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-3 text-left overflow-hidden 
+          shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-96 sm:h-52 sm:p-6 ">
+          <div class="border-b border- border-at-gray33 pb-6 border-opacity-50">
             <div class="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
               <button 
                 type="button"
@@ -33,40 +34,43 @@
                 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" 
                 @click="onReset">
                 <span class="sr-only">Close</span>
-                <XIcon class="h-6 w-6" aria-hidden="true" />
+                <XIcon class="h-5 w-5 bg-at-border text-at-gray54 rounded-full hover:bg-at-gray33 hover:text-at-gray87" aria-hidden="true" />
               </button>
             </div>
             <div class="sm:flex sm:items-start">
-              <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full 
-              bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                <ExclamationIcon class="h-6 w-6 text-red-600" aria-hidden="true" />
-              </div>
               <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                 <DialogTitle as="h3" class="text-lg leading-6 font-medium text-gray-900">
                   Excluir
                 </DialogTitle>
-                <div class="mt-2">
-                  <p class="text-sm text-gray-500">
-                    Confirma a exclusão deste registro?
-                  </p>
-                </div>
               </div>
             </div>
-            <div class="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
+          </div>
+
+            <div class="flex mt-4 justify-between text-center border-b border-at-gray33 border-opacity-50 pb-3">
+              <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full 
+                bg-at-error sm:mx-0 sm:h-10 sm:w-10">
+                <ExclamationIcon class="h-6 w-6 text-white" aria-hidden="true" />
+              </div>
+              <div class="mt-2">
+                <p class="text-sm text-gray-500">
+                  Confirma a exclusão deste registro?
+                </p>
+              </div>
+            </div>
+            <div class="sm:mt-2 sm:flex sm:flex-row-reverse">
               <button 
                 type="button" 
-                class="text-white bg-at-error border border-solid border-white hover:bg-red-700
-               font-semibold text-sm w-full h-10 rounded outline-none focus:outline-none shadow-md
-               sm:w-full sm:text-sm" 
+                class="text-white bg-at-error hover:bg-red-700
+                  font-semibold text-sm w-24 h-10 rounded outline-none focus:outline-none shadow-md
+                  sm:text-sm" 
                 @click="deleteUser">
                 Excluir
               </button>
               <button 
                 type="button"
                 class="text-at-error bg-transparent border border-solid border-at-error hover:bg-red-600
-              hover:text-white active:bg-red-600 font-semibold text-sm w-full h-10 rounded outline-none 
-                focus:outline-none mr-1 ease-linear transition-all duration-150 shadow-md sm:ml-3 sm:w-full 
-                 sm:text-sm"
+                hover:text-white active:bg-red-600 font-semibold text-sm w-28 h-10 rounded outline-none 
+                  focus:outline-none mr-1 ease-linear transition-all duration-150 shadow-md sm:ml-3 sm:text-sm"
                  @click="onReset">
                 Cancelar
               </button>
