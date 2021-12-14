@@ -66,6 +66,7 @@ import Flowmagic from '../components/icons/Flowmagic.vue'
 
 export default {
   name: 'Sidebar',
+  props: ['sidebarOpen'],
   components: {
     Chartbar,
     Flowmagic

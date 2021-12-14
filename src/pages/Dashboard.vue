@@ -4,11 +4,11 @@
     <!-- Content area -->
     <div class="flex-col flex-1 overflow-y-auto overflow-x-hidden">
       <!-- Site header -->
-      <Header :open="sidebarOpen" @toggle-sidebar="toggleSidebar" />
+      <Header />
 
       <div class="flex">
         <!-- Sidebar -->
-        <Sidebar :open="sidebarOpen" @toggle-sidebar="toggleSidebar" />
+        <Sidebar />
         <main class="flex max-w-7xl w-full">
           <div class="lg:pl-24 lg:sidebar-expanded:ml-28 p-6 py-8 w-full">
             <div class="sm:flex sm:justify-between sm:items-center mb-8">
